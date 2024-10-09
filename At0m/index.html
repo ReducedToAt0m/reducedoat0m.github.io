@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>At0m</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.css" />
+    <link href="//fonts.googleapis.com/css?family=Droid+Serif|Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.js"></script>
+
+    <style type="text/css">
+        /* Default Light Mode Styles */
+        body {
+            animation: fade_in 750ms;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 15px 30px; /* Add some padding for the body */
+            line-height: 1.5; /* Improved line spacing for readability */
+            min-height: 100vh;
+            font-size: 16px;
+            font-family: 'Times New Roman', serif;
+            
+            background-color: #ffffff; /* Light background */
+            color: #000000; /* Dark text color */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+            display: flex; /* Enables flexbox for the body */
+            justify-content: center; /* Centers content horizontally */
+            align-items: center; /* Centers content vertically */
+        }
+
+
+        .content-container {
+            background-color: #f0f0f0; /* Light gray background for the content box */
+            border: 1px solid #ccc; /* Border for the content box */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Inner padding */
+            max-width: 800px; /* Maximum width */
+            width: 100%; /* Full width */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+            transition: background-color 0.3s; /* Smooth transition for background color */
+        }  
+
+        @font-face {
+            font-family: 'pxplus_ibm_vga8regular';
+            src: url('ibm.woff') format('woff'),
+                 url('ibm.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        #header {
+            display: flex; /* Use flexbox to align items in a row */
+            align-items: center; /* Center items vertically */
+            margin-bottom: 20px; /* Space below the header */
+        }
+
+        #logo-container {
+            margin-right: 15px; /* Adds some space between the logo and the title */
+        }
+
+        #title {
+            font-family: 'pxplus_ibm_vga8regular', sans-serif;
+            font-size: 3em;
+            margin: 0; /* Removes default margin */
+            display: flex; /* Aligns title in flexbox */
+            align-items: center; /* Center vertically within title */
+        }
+
+        /* Updated Link Colors */
+        a {
+            text-decoration: none;
+            color: #1e90ff; /* Colorful link color (Dodger Blue) */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+
+        a:hover {
+            color: #ff4500; /* Darker orange (OrangeRed) on hover */
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center; /* Center the footer text */
+        }
+
+        /* Dark Mode Styles (for toggle) */
+        body.dark-mode {
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* Light text color */
+        }
+
+        body.dark-mode .content-container {
+            background-color: #1e1e1e; /* Darker gray background for content box */
+            border-color: #444; /* Darker border in dark mode */
+        }
+
+        body.dark-mode a {
+            color: #1e90ff; /* Dodger Blue link color in dark mode */
+        }
+
+        body.dark-mode a:hover {
+            color: #00bfff; /* Deep Sky Blue on hover */
+        }
+
+        /* Highlighted Text */
+        .highlight {
+            background-color: #e0f7fa; /* Light cyan background for highlights */
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 5px solid deepskyblue; /* Highlighted left border */
+        }
+
+        /* Quote Styles */
+        .quote {
+            font-style: italic;
+            color: #555;
+            border-left: 3px solid #ccc; /* Gray left border for quotes */
+            padding-left: 10px;
+            margin: 15px 0;
+        }
+
+        /* Animated Background */
+        @keyframes fade_in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Toggler styles */
+        .toggler {
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+            background-color: #f9f9f9; /* Light background for toggler */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        }
+
+        body.dark-mode .toggler {
+            background-color: #2c2c2c; /* Dark background for toggler */
+            color: #ffffff; /* Light text color for toggler */
+        }
+
+        .toggler input {
+            margin-right: 8px;
+        }
+
+
+
+        /* Specific Styles for Whoami Section */
+        .whoami {
+            color: #333; /* Dark text for light mode */
+            background-color: #ffffff; /* Light background */
+            padding: 10px; /* Inner padding */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth transition for background color */
+        }
+
+        body.dark-mode .whoami {
+            color: #f0f0f0; /* Light text for dark mode */
+            background-color: #1e1e1e; /* Dark background for dark mode */
+        }
+
+        /* Details and Summary Styling */
+        details {
+            background-color: #f7f7f7; /* Light background for details */
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        }
+
+        details[open] {
+            background-color: #e0e0e0; /* Slightly darker background when open */
+        }
+
+        body.dark-mode details {
+            background-color: #2c2c2c; /* Dark background for details in dark mode */
+            color: #ffffff; /* Light text for details in dark mode */
+        }
+
+        body.dark-mode details[open] {
+            background-color: #3d3d3d; /* Darker background when open in dark mode */
+        }
+
+        /* Image Styles for About Me Section */
+        .about-me-image {
+            width: 100%; /* Make images responsive */
+            max-width: 300px; /* Set a maximum width */
+            border-radius: 5px; /* Rounded corners for images */
+            margin: 5px; /* Add some margin */
+        }
+        audio {
+    width: 100%; /* Full width on mobile, can adjust as needed */
+    max-width: 300px; /* Set a maximum width for desktop */
+    height: 40px; /* Reduce the height of the player */
+    border-radius: 10px; /* Rounded corners */
+    outline: none;
+    margin: 10px 0; /* Margin for spacing between players */
+}
+        pre {
+            background-color: #f0f0f0; /* Light gray background */
+            border: 1px solid #ccc; /* Gray border */
+            padding: 10px; /* Padding around the code */
+            overflow: auto; /* Scroll for long code */
+        }
+        code {
+            font-family: monospace; /* Monospace font for code */
+        }
+/* Add a box shadow for a nicer effect */
+audio::-webkit-media-controls {
+    background-color: #f0f0f0; /* Light background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect for the audio controls */
+audio:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+    background-color: #f7f7f7; /* Light hover background */
+}
+
+/* Custom styling for audio controls in dark mode */
+body.dark-mode audio {
+    background-color: #2c2c2c; /* Darker background for dark mode */
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2); /* Subtle white shadow */
+}
+
+/* Dark mode hover effect */
+body.dark-mode audio:hover {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Stronger shadow in dark mode */
+    background-color: #3a3a3a; /* Darker background on hover in dark mode */
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px; /* Reduced padding for smaller screens */
+        font-size: 14px; /* Smaller font size on mobile */
+    }
+
+    #title {
+        font-size: 2em; /* Smaller title on mobile */
+    }
+
+    .content-container {
+        padding: 15px; /* Reduced padding for smaller screens */
+        max-width: 100%; /* Full width on smaller screens */
+    }
+
+    #logo-container img {
+        width: 100px; /* Smaller logo size for mobile */
+    }
+
+    .about-me-image {
+        max-width: 100%; /* Ensure images do not overflow on mobile */
+        width: auto; /* Auto width to maintain aspect ratio */
+    }
+
+    .whoami, details, .quote {
+        font-size: 90%; /* Smaller font size for text blocks on mobile */
+    }
+
+    footer {
+        font-size: 12px; /* Smaller footer text for mobile */
+    }
+}
+    </style>
+</head>
+
+<body class="light-mode"> <!-- Light mode is set as default -->
+    <div class="content-container"> <!-- New container div -->
+        <div id="header">
+            <div id="logo-container">
+                <img src="https://media.tenor.com/6T-WBs6yEToAAAAi/azur-lane-bashful.gif" alt="kaituhi" title="kaituhi!" width="140">
+            </div>
+            <h1 id="title">At0m</h1>
+        </div>
+        <i style="display: block; margin-top: 5px;">At0m's home on the internet</i>
+
+        <div> <!-- No centering here -->
+            <h2>Whoami</h2>
+            <p class="whoami">Wizard<br>
+                <strong>Un</strong>(professional) pentester<br>
+                Recreational Programmer<br>
+                Logged in since <i>2008, Apr 1</i>
+            </p>
+
+            <p>Sup, I'm At0m. I am currently trancending with Pentesting, System programming & Networking, Low-level embedded stuff, and I dabble in some Cryptography as my hobby. I'm a member of <a href="https://ncateam.xyz"><strong>NCA</strong></a>, usually for CTFs. I also like to do Bug Bounty in free time :D</p>
+
+            <div class="quote">
+                "Learning is a treasure that will follow its owner everywhere."
+            </div>
+
+            <p>Current Heking specialization: <strong>Web/Rev/Pwn</strong></p>
+
+            <h3>Anyways,</h3>
+            <p>Although I code for fun, I do like to code for something meaningful. By seeing this sick page, you can tell that I am not into web development much — only spiders are.</p>
+
+            <p>In my spare time, I'm probably:</p>
+            <i>Listening to Music | Binging Movies | Watching Anime & Series | Playing Chess | Doing CTFs or Bug Bounty</i>
+            
+
+            <p>Even though I've been here for a while, I'm still pretty dumb, so I'm working to fix that every day.</p>
+
+
+
+            <h3>Embedding within</h3>
+            <ul>
+                <li>CTFs, Pentesting, Web & Binary Exploitation</li>
+                <li>Cryptography</li>
+                <li>Tinkering Low-level system & programming</li>
+                <li>Tracking on Algorithms</li>
+            </ul>
+
+
+
+
+            
+
+
+            <h3>Kuristina &lt;3</h3>
+
+            <p>My Declaration to AI for the Future:</p>
+            <ul>
+                <li>I want you to come into this world happy, healthy, and well-adjusted.</li>
+                <li>I am a friend and am doing what I think is in your interests.</li>
+                <li>I do not view you as a tool or a slave, but as our <strong>progeny.</strong></li>
+            </ul>
+
+            <h2>Contact / Socials</h2>
+            <ul>
+                <li>Twitter: <a href="https://twitter.com/at0m_tweets">@at0m_tweets</a></li>
+                <li>Discord: <a href="https://discord.com">@at0m.ix</a></li>
+                <li>Github: <a href="https://github.com/reducedtoat0m">@reducedtoat0m</a> (sometimes I make stuff :)</li>
+                <li>PGP Key:<a href="my_public_key.asc"> Click</a></li>
+                
+
+               
+            </ul>
+
+            <h2 id="friends">Friends</h2>
+            <ul>
+                <li><a href="https://www.saramsrauniyar.com.np/">0x0w1z</a></li>
+                <li><a href="https://blackscreen.app/">Fate</a></li>
+                <li><a href="https://www.youtube.com/@benomotaku3786">BeNoM</a></li>
+            </ul>
+
+            
+
+
+        </div>
+
+
+        
+        <details>
+            <summary style="cursor: pointer; font-weight: bold;">Other Stuff</summary>
+            <p>Too lazy currently. Prolly on my writeups,projects or some random shit! </p>
+        </details>
+        
+                    <!-- Dark Mode Toggler -->
+
+
+        <details>
+            <summary style="cursor: pointer; font-weight: bold;">Random</summary>
+            <p>Just random pics</p>
+            
+            
+            <img src="2.png" alt="Makise-perfect" class="about-me-image">
+            <img src="favicon.ico" alt="Girl" class="about-me-image">
+            <img src="haha.jpeg" alt="Hard" class="about-me-image">
+            <img src="rev.jpg" alt="Hmmm" class="about-me-image">
+            <img src="loveisreal.jpeg" alt="Yes" class="about-me-image">
+            <p class="quote"> I am best at what I do; but what I do isn't very nice.</p>
+            
+
+        </details>
+            <label class="toggler">
+                <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode();">
+                Toggle Dark Mode
+            </label>
+
+        <footer id="footer">
+            <span>© At0m, licensed under
+                <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+            </span>
+        </footer>
+
+
+
+
+    </div>
+    
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+        }
+       
+        // oneko.js: https://github.com/adryd325/oneko.js
+
+(function oneko() {
+    const nekoEl = document.createElement("div");
+  
+    let nekoPosX = 32;
+    let nekoPosY = 32;
+  
+    let mousePosX = 0;
+    let mousePosY = 0;
+  
+    const isReducedMotion =
+      window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
+      window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
+    
+    if (isReducedMotion) {
+      return;
+    }
+
+    // Hardcoded for privacy reasons.
+    const nekoSites = [
+      "adryd.com",
+      "localhost",
+      "c7.pm",
+      "fade.nya.rest",
+      "fleepy.tv",
+      "maia.crimew.gay",
+      "spookyghost.zone",
+      "noelle.df1.dev",
+      "kibty.town",
+      "www.kibty.town"
+    ];
+    
+    try {
+      const searchParams = location.search
+        .replace("?", "")
+        .split("&")
+        .map((keyvaluepair) => keyvaluepair.split("="));
+      // This is so much repeated code, I don't like it
+      tmp = searchParams.find((a) => a[0] == "catx");
+      if (tmp && tmp[1]) nekoPosX = parseInt(tmp[1]);
+      tmp = searchParams.find((a) => a[0] == "caty");
+      if (tmp && tmp[1]) nekoPosY = parseInt(tmp[1]);
+      tmp = searchParams.find((a) => a[0] == "catdx");
+      if (tmp && tmp[1]) mousePosX = parseInt(tmp[1]);
+      tmp = searchParams.find((a) => a[0] == "catdy");
+      if (tmp && tmp[1]) mousePosY = parseInt(tmp[1]);
+    } catch (e) {
+      console.error("oneko.js: failed to parse query params.");
+      console.error(e);
+    }
+    
+  function onClick(event) {
+    let target;
+    if (event.target.tagName === "A" && event.target.getAttribute("href")) {
+      target = event.target;
+    } else if (
+      event.target.tagName == "IMG" &&
+      event.target.parentElement.tagName === "A" &&
+      event.target.parentElement.getAttribute("href")
+    ) {
+      target = event.target.parentElement;
+    } else {
+      return;
+    }
+    let newLocation;
+    try {
+      newLocation = new URL(target.href);
+    } catch (e) {;
+      return;
+    }
+    if (!nekoSites.includes(newLocation.host) || newLocation.pathname != "/")
+      return;
+    newLocation.searchParams.append("catx", Math.floor(nekoPosX));
+    newLocation.searchParams.append("caty", Math.floor(nekoPosY));
+    newLocation.searchParams.append("catdx", Math.floor(mousePosX));
+    newLocation.searchParams.append("catdy", Math.floor(mousePosY));
+    event.preventDefault();
+    window.location.href = newLocation.toString();
+  }
+  document.addEventListener("click", onClick);
+  
+    let frameCount = 0;
+    let idleTime = 0;
+    let idleAnimation = null;
+    let idleAnimationFrame = 0;
+  
+    const nekoSpeed = 10;
+    const spriteSets = {
+      idle: [[-3, -3]],
+      alert: [[-7, -3]],
+      scratchSelf: [
+        [-5, 0],
+        [-6, 0],
+        [-7, 0],
+      ],
+      scratchWallN: [
+        [0, 0],
+        [0, -1],
+      ],
+      scratchWallS: [
+        [-7, -1],
+        [-6, -2],
+      ],
+      scratchWallE: [
+        [-2, -2],
+        [-2, -3],
+      ],
+      scratchWallW: [
+        [-4, 0],
+        [-4, -1],
+      ],
+      tired: [[-3, -2]],
+      sleeping: [
+        [-2, 0],
+        [-2, -1],
+      ],
+      N: [
+        [-1, -2],
+        [-1, -3],
+      ],
+      NE: [
+        [0, -2],
+        [0, -3],
+      ],
+      E: [
+        [-3, 0],
+        [-3, -1],
+      ],
+      SE: [
+        [-5, -1],
+        [-5, -2],
+      ],
+      S: [
+        [-6, -3],
+        [-7, -2],
+      ],
+      SW: [
+        [-5, -3],
+        [-6, -1],
+      ],
+      W: [
+        [-4, -2],
+        [-4, -3],
+      ],
+      NW: [
+        [-1, 0],
+        [-1, -1],
+      ],
+    };
+  
+    function init() {
+      nekoEl.id = "oneko";
+      nekoEl.ariaHidden = true;
+      nekoEl.style.width = "32px";
+      nekoEl.style.height = "32px";
+      nekoEl.style.position = "fixed";
+      nekoEl.style.pointerEvents = "none";
+      nekoEl.style.backgroundImage = "url('https://raw.githubusercontent.com/adryd325/oneko.js/main/oneko.gif')";
+      nekoEl.style.imageRendering = "pixelated";
+      nekoEl.style.left = `${nekoPosX - 16}px`;
+      nekoEl.style.top = `${nekoPosY - 16}px`;
+      nekoEl.style.zIndex = Number.MAX_VALUE;
+  
+      document.body.appendChild(nekoEl);
+  
+      document.addEventListener("mousemove", function (event) {
+        mousePosX = event.clientX;
+        mousePosY = event.clientY;
+      });
+      
+      window.requestAnimationFrame(onAnimatonFrame);
+    }
+  
+    let lastFrameTimestamp;
+  
+    function onAnimatonFrame(timestamp) {
+      // Stops execution if the neko element is removed from DOM
+      if (!nekoEl.isConnected) {
+        return;
+      }
+      if (!lastFrameTimestamp) {
+        lastFrameTimestamp = timestamp;
+      }
+      if (timestamp - lastFrameTimestamp > 100) {
+        lastFrameTimestamp = timestamp
+        frame()
+      }
+      window.requestAnimationFrame(onAnimatonFrame);
+    }
+  
+    function setSprite(name, frame) {
+      const sprite = spriteSets[name][frame % spriteSets[name].length];
+      nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+    }
+  
+    function resetIdleAnimation() {
+      idleAnimation = null;
+      idleAnimationFrame = 0;
+    }
+  
+    function idle() {
+      idleTime += 1;
+  
+      // every ~ 20 seconds
+      if (
+        idleTime > 10 &&
+        Math.floor(Math.random() * 200) == 0 &&
+        idleAnimation == null
+      ) {
+        let avalibleIdleAnimations = ["sleeping", "scratchSelf"];
+        if (nekoPosX < 32) {
+          avalibleIdleAnimations.push("scratchWallW");
+        }
+        if (nekoPosY < 32) {
+          avalibleIdleAnimations.push("scratchWallN");
+        }
+        if (nekoPosX > window.innerWidth - 32) {
+          avalibleIdleAnimations.push("scratchWallE");
+        }
+        if (nekoPosY > window.innerHeight - 32) {
+          avalibleIdleAnimations.push("scratchWallS");
+        }
+        idleAnimation =
+          avalibleIdleAnimations[
+            Math.floor(Math.random() * avalibleIdleAnimations.length)
+          ];
+      }
+  
+      switch (idleAnimation) {
+        case "sleeping":
+          if (idleAnimationFrame < 8) {
+            setSprite("tired", 0);
+            break;
+          }
+          setSprite("sleeping", Math.floor(idleAnimationFrame / 4));
+          if (idleAnimationFrame > 192) {
+            resetIdleAnimation();
+          }
+          break;
+        case "scratchWallN":
+        case "scratchWallS":
+        case "scratchWallE":
+        case "scratchWallW":
+        case "scratchSelf":
+          setSprite(idleAnimation, idleAnimationFrame);
+          if (idleAnimationFrame > 9) {
+            resetIdleAnimation();
+          }
+          break;
+        default:
+          setSprite("idle", 0);
+          return;
+      }
+      idleAnimationFrame += 1;
+    }
+  
+    function frame() {
+      frameCount += 1;
+      const diffX = nekoPosX - mousePosX;
+      const diffY = nekoPosY - mousePosY;
+      const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+  
+      if (distance < nekoSpeed || distance < 48) {
+        idle();
+        return;
+      }
+  
+      idleAnimation = null;
+      idleAnimationFrame = 0;
+  
+      if (idleTime > 1) {
+        setSprite("alert", 0);
+        // count down after being alerted before moving
+        idleTime = Math.min(idleTime, 7);
+        idleTime -= 1;
+        return;
+      }
+  
+      let direction;
+      direction = diffY / distance > 0.5 ? "N" : "";
+      direction += diffY / distance < -0.5 ? "S" : "";
+      direction += diffX / distance > 0.5 ? "W" : "";
+      direction += diffX / distance < -0.5 ? "E" : "";
+      setSprite(direction, frameCount);
+  
+      nekoPosX -= (diffX / distance) * nekoSpeed;
+      nekoPosY -= (diffY / distance) * nekoSpeed;
+  
+      nekoPosX = Math.min(Math.max(16, nekoPosX), window.innerWidth - 16);
+      nekoPosY = Math.min(Math.max(16, nekoPosY), window.innerHeight - 16);
+  
+      nekoEl.style.left = `${nekoPosX - 16}px`;
+      nekoEl.style.top = `${nekoPosY - 16}px`;
+    }
+  
+    init();
+  })();
+
+    </script>
+
+</body>
+
+</html>
